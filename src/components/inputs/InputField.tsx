@@ -1,7 +1,11 @@
 import { HTMLAttributes, useState } from "react";
 import { FiMail } from "react-icons/fi";
 
-interface InputFieldProps extends HTMLAttributes<HTMLInputElement> {
+interface InputFieldProps
+  extends React.DetailedHTMLProps<
+    React.InputHTMLAttributes<HTMLInputElement>,
+    HTMLInputElement
+  > {
   icon?: any;
   label?: string;
   error?: string;

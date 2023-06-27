@@ -1,6 +1,10 @@
 import React, { HTMLAttributes } from "react";
 
-interface IButtonProps extends HTMLAttributes<HTMLButtonElement> {
+interface IButtonProps
+  extends React.DetailedHTMLProps<
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
+    HTMLButtonElement
+  > {
   children: React.ReactNode;
 }
 const Button = ({ children }: IButtonProps) => {
