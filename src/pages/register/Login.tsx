@@ -4,21 +4,32 @@ import Button from "../../components/buttons/Button";
 import { FiKey, FiLock, FiMail } from "react-icons/fi";
 import { useLoginMutation } from "../../features/services/app/mainApi";
 import { Formik } from "formik";
+import { useDispatch } from "react-redux";
+import { LoginUser } from "../../features/reducers/userReducer";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [Login] = useLoginMutation();
-
+  const dispatch = useDispatch();
+  const nav = useNavigate();
   return (
     <div className="flex justify-center items-center flex-col px-30 ">
       <Formik
         initialValues={{
-          email: "john.doe@example.com",
+          email: "john.doe3@example.com",
           password: "password123",
         }}
-        onSubmit={(data) => {
-          Login(data).then((res) => {
-            console.log("res", res);
-          });
+        onSubmit={async (data) => {
+          const res = await Login(data);
+          if (res?.data?.success) {
+            dispatch(LoginUser(res?.data?.user));
+
+            if (res?.data?.user?.user_account?.role === "freelancer") {
+              nav("/fl/dashboard");
+            } else if (res?.data?.user?.user_account?.role === "client") {
+              nav("/fl/client");
+            }
+          }
           console.log("data", data);
         }}
       >

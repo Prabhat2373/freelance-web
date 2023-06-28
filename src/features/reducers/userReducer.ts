@@ -26,6 +26,7 @@ export interface UserType {
   billing_info: BillingInfo;
   resetPasswordExpire: string;
   resetPasswordToken: string;
+  user_account: any;
 }
 
 export interface Avatar {
@@ -43,10 +44,10 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    Login: (state, action: PayloadAction<UserType>) => {
+    LoginUser: (state, action: PayloadAction<UserType>) => {
       state.isLoggedIn = true;
       state.user = action.payload;
-      state.role = action.payload.role;
+      state.role = action.payload.user_account?.role;
     },
     LogoutUser: (state) => {
       state.isLoggedIn = false;
@@ -61,6 +62,6 @@ const userSlice = createSlice({
   },
 });
 
-export const { LogoutUser, User } = userSlice.actions;
+export const { LogoutUser, LoginUser, User } = userSlice.actions;
 
 export default userSlice.reducer;

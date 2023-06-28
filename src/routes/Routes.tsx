@@ -72,7 +72,7 @@ export const AllPages = () => {
     {
       element: (
         <ProtectedRoutes>
-          <AppLayout isAuthenticated userRole="">
+          <AppLayout >
             <Outlet />
           </AppLayout>
         </ProtectedRoutes>
