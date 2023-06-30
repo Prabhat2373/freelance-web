@@ -15,4 +15,11 @@ export const routes: Array<RouteListProps> = [
     routeName: "Freelancer Dashboard",
     layout: GuestLayout,
   },
+  {
+    id: "home",
+    path: "/onboarding",
+    element: <LazyElement.Onboarding />,
+    routeName: "Freelancer Dashboard",
+    layout: GuestLayout,
+  },
 ];

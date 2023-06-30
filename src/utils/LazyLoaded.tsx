@@ -7,3 +7,6 @@ export const Dashboard = AppLoader(
 export const Home = AppLoader(lazy(() => import("../pages/home/Index")));
 
 export const Login = AppLoader(lazy(() => import("../pages/register/Login")));
+export const Onboarding = AppLoader(
+  lazy(() => import("../pages/onboarding/Onboarding"))
+);

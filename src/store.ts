@@ -14,6 +14,7 @@ import {
 import storage from "redux-persist/lib/storage";
 import userReducer from "./features/reducers/userReducer";
 import { mainApi } from "./features/services/app/mainApi";
+import onboardingSlice from "./features/reducers/onboardingSlice";
 
 const persistConfig = {
   key: "root",
@@ -26,6 +27,7 @@ const rootReducer = persistReducer(persistConfig, userReducer);
 export const store = configureStore({
   reducer: {
     user: rootReducer,
+    onboarding: onboardingSlice,
     // Add the generated reducer as a specific top-level slice
     [mainApi.reducerPath]: mainApi.reducer,
   },

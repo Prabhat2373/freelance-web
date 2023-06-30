@@ -16,12 +16,17 @@ const Navbar = () => {
         </ul>
       </div>
       <div className="flex gap-5">
-        <Link to={"/login"} className="text-base font-medium">
-          Log in
+        <Link
+          to={"/login"}
+          className="text-base font-medium p-0 m-0 flex items-center"
+        >
+          <button>Log in</button>
         </Link>
-        <button className="px-9 py-3 flex justify-center items-center bg-red-500 text-white font-semibold rounded-full">
-          sign up
-        </button>
+        <Link to={"/register"}>
+          <button className="px-9 py-3 flex justify-center items-center bg-red-500 text-white font-semibold rounded-full">
+            sign up
+          </button>
+        </Link>
       </div>
     </nav>
   );
