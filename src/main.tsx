@@ -6,11 +6,14 @@ import App from "./App.tsx";
 import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import { store } from "./store.ts";
+import { FormContextProvider } from "./context/FormContext.tsx";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <BrowserRouter>
     <Provider store={store}>
-      <App />
+      <FormContextProvider>
+        <App />
+      </FormContextProvider>
     </Provider>
   </BrowserRouter>
 );

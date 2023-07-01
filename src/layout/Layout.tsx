@@ -17,6 +17,9 @@ const Layout = ({ children }: LayoutProps) => {
   );
   const pagePath = location.pathname;
   console.log("role", role === "freelancer");
+  if (!isLoggedIn) {
+    return <Navigate to={"/login"} replace />;
+  }
 
   if (pagePath.startsWith("/fl") && role === "freelancer") {
     return <FreelancerLayout>{children}</FreelancerLayout>;

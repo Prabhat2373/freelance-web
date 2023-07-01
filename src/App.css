@@ -40,5 +40,20 @@
     scale: 1;
   }
   
+  #stepperProgress::-webkit-progress-value{
+      /* -webkit-appearance: none; */
+       /* appearance: none; */
+       background-color: #FF4C4A !important;
+       color: #FF4C4A !important;
+       border-radius: 12px;    
+  }  
+  #stepperProgress::-webkit-progress-bar{
+      /* -webkit-appearance: none; */
+       /* appearance: none; */
+       background-color: rgba(0, 0, 0, 0.081) !important;
+       /* color: rgba(0, 0, 0, 0.321) !important; */
+       border-radius: 12px;
+    
+  }
   
   

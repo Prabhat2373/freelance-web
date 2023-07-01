@@ -1,25 +1,29 @@
-import { Field, Form, Formik } from "formik";
+import React from "react";
+import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
-import { useOnboardingForm } from "../../context/FormContext";
 import StepLayout from "../../layout/freelancer/StepLayout";
-import Button from "@/components/buttons/Button";
+import { useOnboardingForm } from "../../context/FormContext";
+import Button from '@/components/buttons/Button';
 
-const EnterEducationDetailsForm = () => {
+const AddHourlyRate: React.FC = () => {
   const { formData, setFormData, activeStepIndex, setActiveStepIndex } =
     useOnboardingForm();
 
   const initialValues = {
-    educationDetails: formData.educationDetails || "",
+    hourlyRate: formData.hourlyRate || "",
   };
 
   const validationSchema = Yup.object({
-    educationDetails: Yup.string().required("Education details are required"),
+    hourlyRate: Yup.number()
+      .typeError("Hourly rate must be a number")
+      .required("Hourly rate is required")
+      .positive("Hourly rate must be a positive number"),
   });
 
   const handleSubmit = (values: any) => {
     setFormData((prevFormData: any) => ({
       ...prevFormData,
-      educationDetails: values.educationDetails,
+      hourlyRate: values.hourlyRate,
     }));
     setActiveStepIndex(activeStepIndex + 1);
     // Do something with the form values
@@ -28,8 +32,10 @@ const EnterEducationDetailsForm = () => {
 
   return (
     <StepLayout
-      title={"Let us know about your education."}
-      subTitle={"Example : Bachelor's in Computer Science"}
+      title={"Add Hourly Rate"}
+      subTitle={
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod."
+      }
     >
       <Formik
         initialValues={initialValues}
@@ -37,13 +43,9 @@ const EnterEducationDetailsForm = () => {
         onSubmit={handleSubmit}
       >
         <Form>
-          <label htmlFor="educationDetails">Enter Education Details:</label>
-          <Field
-            as="textarea"
-            id="educationDetails"
-            name="educationDetails"
-            required
-          />
+          <label htmlFor="hourlyRate">Hourly Rate:</label>
+          <Field type="number" id="hourlyRate" name="hourlyRate" required />
+
           <div className="flex justify-center items-center py-12">
             <Button
               width="60%"
@@ -60,4 +62,4 @@ const EnterEducationDetailsForm = () => {
   );
 };
 
-export default EnterEducationDetailsForm;
+export default AddHourlyRate;

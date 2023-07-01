@@ -5,31 +5,44 @@ import { useOnboardingForm } from "../../context/FormContext";
 import StepLayout from "../../layout/freelancer/StepLayout";
 import Button from "@/components/buttons/Button";
 
-const SelectLanguageForm = () => {
+const AddSkills = () => {
   const { formData, setFormData, activeStepIndex, setActiveStepIndex } =
     useOnboardingForm();
 
   const initialValues = {
-    language: formData.language || "",
+    skills: formData.skills || [],
   };
 
   const validationSchema = Yup.object({
-    language: Yup.string().required("Language is required"),
+    skills: Yup.array().min(1, "At least one skill is required"),
   });
 
   const handleSubmit = (values: any) => {
     setFormData((prevFormData: any) => ({
       ...prevFormData,
-      language: values.language,
+      skills: values.skills,
     }));
     setActiveStepIndex(activeStepIndex + 1);
     // Do something with the form values
     console.log("Form values:", values);
   };
 
+  // Random skills for demonstration purposes
+  const skillsOptions = [
+    { value: "649c676f3059edf05e57ad06", label: "HTML" },
+    { value: "CSS", label: "CSS" },
+    { value: "JavaScript", label: "JavaScript" },
+    { value: "React", label: "React" },
+    { value: "Node.js", label: "Node.js" },
+    { value: "Python", label: "Python" },
+    { value: "Java", label: "Java" },
+    { value: "C#", label: "C#" },
+    { value: "PHP", label: "PHP" },
+  ];
+
   return (
     <StepLayout
-      title={"Add languages."}
+      title={"Add your skills."}
       subTitle={
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit,sed do eiusmod."
       }
@@ -40,12 +53,13 @@ const SelectLanguageForm = () => {
         onSubmit={handleSubmit}
       >
         <Form>
-          <label htmlFor="language">Select Language:</label>
-          <Field as="select" id="language" name="language" required>
-            <option value="">-- Select Language --</option>
-            <option value="English">English</option>
-            <option value="Spanish">Spanish</option>
-            <option value="French">French</option>
+          <label htmlFor="skills">Select Skills:</label>
+          <Field as="select" id="skills" name="skills" multiple required>
+            {skillsOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
           </Field>
           <div className="flex justify-center items-center py-12">
             <Button
@@ -63,4 +77,4 @@ const SelectLanguageForm = () => {
   );
 };
 
-export default SelectLanguageForm;
+export default AddSkills;

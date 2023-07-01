@@ -1,93 +1,111 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { Formik, Field, Form } from "formik";
 import { useNavigate } from "react-router-dom";
-import { useLoginMutation } from "../../features/services/app/mainApi";
-import { Formik } from "formik";
-import InputField from "../../components/inputs/InputField";
-import { FiLock, FiMail } from "react-icons/fi";
-import Button from "../../components/buttons/Button";
-import { LoginUser } from "../../features/reducers/userReducer";
+import { useOnboardingForm } from "@/context/FormContext";
+import InputField from "@/components/inputs/InputField";
 
-const Register = () => {
-  const [Login] = useLoginMutation();
-  const dispatch = useDispatch();
+function MainForm() {
+  const { formData, setFormData } = useOnboardingForm();
   const nav = useNavigate();
+  const handleSubmit = (values) => {
+    console.log("values", values);
+
+    if (values.role === "freelancer") {
+      // <Navigate to={"/onboarding"} />;
+      setFormData({
+        ...formData,
+        firstName: values.firstName,
+        lastName: values.lastName,
+        email: values.email,
+        role: values.role,
+        password: values.password,
+      });
+      nav("/onboarding");
+    } else {
+      // Handle client form submission
+      // ...
+    }
+  };
+
+  const initialValues = {
+    firstName: "",
+    lastName: "",
+    email: "",
+    role: "",
+    password: "",
+  };
+
   return (
-    <div>
-      <div className="flex justify-center items-center flex-col px-30 ">
-        <Formik
-          initialValues={{
-            email: "john.doe3@example.com",
-            password: "password123",
-          }}
-          onSubmit={async (data) => {
-            const res = await Login(data);
-            if (res?.data?.success) {
-              dispatch(LoginUser(res?.data?.user));
+    <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+      {({ handleChange, values, errors }) => {
+        return (
+          <Form>
+            <div>
+              <h1>Register</h1>
+            </div>
+            {/* <label htmlFor="firstName">First Name:</label>
+        <Field type="text" id="firstName" name="firstName" required />
 
-              if (res?.data?.user?.user_account?.role === "freelancer") {
-                nav("/fl/dashboard");
-              } else if (res?.data?.user?.user_account?.role === "client") {
-                nav("/fl/client");
-              }
-            }
-            console.log("data", data);
-          }}
-        >
-          {({ values, handleChange, errors, handleSubmit }) => {
-            return (
-              <form onSubmit={handleSubmit}>
-                <div className="bg-off-white shadow-2xl px-32 py-10">
-                  <div>
-                    <h1 className="text-3xl font-bold">
-                      Complete your free account setup
-                    </h1>
-                    <div>
-                      <span className="bg-violet-600 text-white px-4 py-2 rounded-full">
-                        P
-                      </span>
-                      <span>prabhat@gmail.com</span>
-                    </div>
-                  </div>
-                  <div className="flex gap-3 flex-col">
-                    <InputField
-                      label="Email"
-                      error="this is error"
-                      type="email"
-                      placeholder="email"
-                      onChange={handleChange("email")}
-                      value={values.email}
-                      icon={
-                        <>
-                          <FiMail className="text-gray-500 mr-2" />
-                        </>
-                      }
-                    />
-                    <InputField
-                      label="Email"
-                      error="this is error"
-                      type="password"
-                      placeholder="password"
-                      onChange={handleChange("password")}
-                      value={values.password}
-                      icon={<FiLock />}
-                    />
-                    <div>
-                      <Button type="submit">Login</Button>
-                    </div>
-                    <div>
-                      Don’t have account?{" "}
-                      <span className="text-orange">Sign up</span>
-                    </div>
-                  </div>
-                </div>
-              </form>
-            );
-          }}
-        </Formik>
-      </div>
-    </div>
+        <label htmlFor="lastName">Last Name:</label>
+        <Field type="text" id="lastName" name="lastName" required /> */}
+            <div>
+              <InputField
+                id="firstName"
+                name="firstName"
+                onChange={handleChange}
+                value={values.firstName}
+                label="First Name"
+                error={errors?.firstName}
+              />
+            </div>
+            <div>
+              <InputField
+                id="lastName"
+                name="lastName"
+                onChange={handleChange}
+                value={values.lastName}
+                label="Last Name"
+                error={errors?.lastName}
+              />
+            </div>
+            <div>
+              <InputField
+                id="email"
+                name="email"
+                onChange={handleChange}
+                value={values.email}
+                label="email"
+                error={errors?.email}
+              />
+            </div>
+            <div>
+              <InputField
+                id="password"
+                name="password"
+                onChange={handleChange}
+                value={values.password}
+                label="password"
+                error={errors?.password}
+              />
+            </div>
+            <div>
+              <label>
+                <Field type="radio" name="role" value="freelancer" required />
+                Freelancer
+              </label>
+
+              <label>
+                <Field type="radio" name="role" value="client" required />
+                Client
+              </label>
+            </div>
+
+            <button type="submit">Submit</button>
+          </Form>
+        );
+      }}
+    </Formik>
   );
-};
+}
 
-export default Register;
+export default MainForm;
