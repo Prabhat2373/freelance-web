@@ -7,7 +7,7 @@ const FreelancerLayout = ({ children }: { children: ReactNode }) => {
   return (
     <div>
       <Navbar />
-      {children}
+      <div className="">{children}</div>
       <Footer />
     </div>
   );

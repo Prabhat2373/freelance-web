@@ -10,9 +10,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@radix-ui/react-dropdown-menu": "^2.0.5",
+    "@radix-ui/react-tabs": "^1.0.4",
     "@reduxjs/toolkit": "^1.9.5",
+    "class-variance-authority": "^0.6.1",
+    "clsx": "^1.2.1",
     "formik": "^2.4.2",
     "formik-stepper": "^2.2.1",
+    "lucide-react": "^0.257.0",
     "path": "^0.12.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -21,6 +26,8 @@
     "react-router-dom": "^6.14.0",
     "react-select": "^5.7.3",
     "redux-persist": "^6.0.0",
+    "tailwind-merge": "^1.13.2",
+    "tailwindcss-animate": "^1.0.6",
     "yup": "^1.2.0"
   },
   "devDependencies": {
