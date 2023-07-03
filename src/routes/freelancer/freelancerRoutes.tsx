@@ -19,8 +19,15 @@ export const freelancerRoutes: Array<RouteListProps> = [
   },
   {
     id: "2",
-    path: "/fl/jobs/apply/:id",
+    path: "/fl/jobs/view/:id",
     element: <LazyElement.ApplyPage />,
+    routeName: "view job",
+    layout: FreelancerLayout,
+  },
+  {
+    id: "2",
+    path: "/fl/profile",
+    element: <LazyElement.FreelancerProfile />,
     routeName: "apply job",
     layout: FreelancerLayout,
   },

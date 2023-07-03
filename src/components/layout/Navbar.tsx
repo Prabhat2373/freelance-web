@@ -23,7 +23,9 @@ const Navbar = () => {
           </ul>
         ) : (
           <ul className="flex gap-10">
-            <li className="text-base font-medium">Browse projects</li>
+            <li className="text-base font-medium">
+              <Link to={"/fl/jobs"}>Browse projects</Link>
+            </li>
             <li className="text-base font-medium">My Jobs</li>
             <li className="text-base font-medium">Messages</li>
           </ul>

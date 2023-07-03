@@ -53,7 +53,7 @@ const JobsIndex = () => {
               return (
                 <JobCard
                   data={job}
-                  onClick={() => nav(`/fl/jobs/apply/${job._id}`)}
+                  onClick={() => nav(`/fl/jobs/view/${job._id}`)}
                 />
               );
             })}
