@@ -15,6 +15,7 @@ import storage from "redux-persist/lib/storage";
 import userReducer from "./features/reducers/userReducer";
 import { mainApi } from "./features/services/app/mainApi";
 import onboardingSlice from "./features/reducers/onboardingSlice";
+import { jobApi } from "./features/services/app/jobApi";
 
 const persistConfig = {
   key: "root",
@@ -30,6 +31,7 @@ export const store = configureStore({
     onboarding: onboardingSlice,
     // Add the generated reducer as a specific top-level slice
     [mainApi.reducerPath]: mainApi.reducer,
+    [jobApi.reducerPath]: jobApi.reducer,
   },
 
   middleware: (getDefaultMiddleware) =>
@@ -37,7 +39,9 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(mainApi.middleware),
+    })
+      .concat(mainApi.middleware)
+      .concat(jobApi.middleware),
 });
 
 export const persistor = persistStore(store);

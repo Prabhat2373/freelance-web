@@ -1,11 +1,16 @@
 import Button from "@/components/buttons/Button";
 import Page from "@/components/page/Page";
+import { Badge } from "@/components/ui/badge";
+import { useGetJobByIdQuery } from "@/features/services/app/jobApi";
 import React from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 const ViewJob = () => {
   const { id } = useParams();
+  const { data: jobDetails } = useGetJobByIdQuery(id);
   console.log("ID", id);
+  console.log("jobDetails", jobDetails);
+  const nav = useNavigate();
 
   return (
     <Page>
@@ -63,6 +68,9 @@ const ViewJob = () => {
           <div className="mb-6">
             <h2 className="text-lg font-semibold">Skills</h2>
             <div className="flex flex-wrap gap-2">
+              {jobDetails?.data?.required_skills?.map((skill) => {
+                return <Badge key={skill._id}>{skill?.skill_name}</Badge>;
+              })}
               <span className="inline-block px-3 py-1 bg-blue-500 text-white rounded-md">
                 Skill 1
               </span>
@@ -77,34 +85,20 @@ const ViewJob = () => {
             <p>People Hired</p>
             <p>Last Viewed by Client</p>
           </div>
-          <div className="mb-6">
-            <h2 className="text-lg font-semibold">Questions</h2>
-            {/* Render dynamic input questions from client */}
-            <input type="text" placeholder="Question 1" className="mb-2" />
-            <input type="text" placeholder="Question 2" className="mb-2" />
-            {/* Add more input questions here */}
-          </div>
-          <div className="mb-6">
-            <h2 className="text-lg font-semibold">Cover Letter</h2>
-            <textarea
-              rows={4}
-              placeholder="Write your cover letter here"
-              className="w-full"
-            />
-          </div>
-          <div className="flex justify-end">
+        </div>
+        <div className="col-span-1 p-5">
+          <div className="flex flex-col gap-3">
             <Button
+              onClick={() => nav(`/fl/jobs/apply/${id}`)}
               variant="filled"
               className="px-4 py-2 mr-2 text-white bg-blue-500 rounded-md"
             >
               Submit Proposal
             </Button>
-            <button className="px-4 py-2 text-gray-600 bg-gray-200 rounded-md">
+            <Button variant="outlined" color="black">
               Cancel
-            </button>
+            </Button>
           </div>
-        </div>
-        <div className="col-span-1">
           <div className="mb-6">
             <h2 className="text-lg font-semibold">About the Client</h2>
             <p>Country</p>
@@ -124,3 +118,17 @@ const ViewJob = () => {
 };
 
 export default ViewJob;
+
+// <div className="mb-6">
+//             <h2 className="text-lg font-semibold">Questions</h2>
+//             <input type="text" placeholder="Question 1" className="mb-2" />
+//             <input type="text" placeholder="Question 2" className="mb-2" />
+//           </div>
+//           <div className="mb-6">
+//             <h2 className="text-lg font-semibold">Cover Letter</h2>
+//             <textarea
+//               rows={4}
+//               placeholder="Write your cover letter here"
+//               className="w-full"
+//             />
+//           </div>
