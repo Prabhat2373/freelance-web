@@ -31,6 +31,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import Button from "../buttons/Button";
+import { Link } from "react-router-dom";
 
 export function ProfileMenu({ isOpen, setIsOpen }) {
   console.log("isOpen", isOpen);
@@ -44,7 +45,9 @@ export function ProfileMenu({ isOpen, setIsOpen }) {
         <DropdownMenuGroup>
           <DropdownMenuItem>
             <User className="mr-2 h-4 w-4" />
-            <span>Profile</span>
+            <Link to={"/fl/profile"}>
+              <span>Profile</span>
+            </Link>
             <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
           </DropdownMenuItem>
           <DropdownMenuItem>
@@ -54,7 +57,9 @@ export function ProfileMenu({ isOpen, setIsOpen }) {
           </DropdownMenuItem>
           <DropdownMenuItem>
             <Settings className="mr-2 h-4 w-4" />
-            <span>Settings</span>
+            <Link to="/fl/contracts">
+              <span>Contracts</span>
+            </Link>
             <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
           </DropdownMenuItem>
           <DropdownMenuItem>

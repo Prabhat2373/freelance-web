@@ -26,8 +26,12 @@ const Navbar = () => {
             <li className="text-base font-medium">
               <Link to={"/fl/jobs"}>Browse projects</Link>
             </li>
-            <li className="text-base font-medium">My Jobs</li>
-            <li className="text-base font-medium">Messages</li>
+            <li className="text-base font-medium">
+              <Link to="/fl/jobs">My Jobs</Link>
+            </li>
+            <li className="text-base font-medium">
+              <Link to={"/fl/messages"}>Messages</Link>
+            </li>
           </ul>
         )}
       </div>
