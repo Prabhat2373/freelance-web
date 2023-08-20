@@ -1,11 +1,6 @@
-import { HTMLAttributes, useState } from "react";
-import { FiMail } from "react-icons/fi";
+import { ComponentProps } from "react";
 
-interface InputFieldProps
-  extends React.DetailedHTMLProps<
-    React.InputHTMLAttributes<HTMLInputElement>,
-    HTMLInputElement
-  > {
+interface InputFieldProps extends ComponentProps<"input"> {
   icon?: any;
   label?: string;
   error?: string;
@@ -13,7 +8,7 @@ interface InputFieldProps
 }
 
 const InputField = ({ icon, error, type, ...props }: InputFieldProps) => {
-  console.log("errorrrr", error);
+  // console.log("errorrrr", error);
   return (
     <>
       {props.label && <label htmlFor={props.id}>{props.label}</label>}

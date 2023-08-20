@@ -12,6 +12,18 @@ const Login = () => {
   const [Login] = useLoginMutation();
   const dispatch = useDispatch();
   const nav = useNavigate();
+  const handleLogin = async (data) => {
+    const res = await Login(data);
+    if (res?.data?.success) {
+      dispatch(LoginUser(res?.data?.user));
+
+      if (res?.data?.user?.user_account?.role === "freelancer") {
+        nav("/fl/dashboard");
+      } else if (res?.data?.user?.user_account?.role === "client") {
+        nav("/fl/client");
+      }
+    }
+  };
   return (
     <div className="flex justify-center items-center flex-col px-30 ">
       <Formik
@@ -19,19 +31,7 @@ const Login = () => {
           email: "john.doe3@example.com",
           password: "password123",
         }}
-        onSubmit={async (data) => {
-          const res = await Login(data);
-          if (res?.data?.success) {
-            dispatch(LoginUser(res?.data?.user));
-
-            if (res?.data?.user?.user_account?.role === "freelancer") {
-              nav("/fl/dashboard");
-            } else if (res?.data?.user?.user_account?.role === "client") {
-              nav("/fl/client");
-            }
-          }
-          console.log("data", data);
-        }}
+        onSubmit={handleLogin}
       >
         {({ values, handleChange, errors, handleSubmit }) => {
           return (
